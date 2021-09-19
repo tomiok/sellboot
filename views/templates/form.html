@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Form</title>
+<link rel="stylesheet" type="text/css" href="../assets/view.css" media="all">
+<script type="text/javascript" src="../assets/view.js"></script>
+<script type="text/javascript" src="../assets/calendar.js"></script>
+</head>
+<body id="main_body" >
+	
+	<img id="top" src="../assets/top.png" alt="">
+	<div id="form_container">
+	
+		<h1><a>Untitled Form</a></h1>
+		<form id="form_32023" class="appnitro"  method="post" action="">
+					<div class="form_description">
+			<h2>Untitled Form</h2>
+			<p>This is your form description. Click here to edit.</p>
+		</div>						
+			<ul >
+			
+					<li id="li_1" >
+		<label class="description" for="element_1">Nombre </label>
+		<div>
+			<input id="element_1" name="element_1" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_2" >
+		<label class="description" for="element_2">Web </label>
+		<div>
+			<input id="element_2" name="element_2" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_3" >
+		<label class="description" for="element_3">LinkedIn </label>
+		<div>
+			<input id="element_3" name="element_3" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_5" >
+		<label class="description" for="element_5">Cuando comenzó </label>
+		<span>
+			<input id="element_5_1" name="element_5_1" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_5_1">DD</label>
+		</span>
+		<span>
+			<input id="element_5_2" name="element_5_2" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_5_2">MM</label>
+		</span>
+		<span>
+	 		<input id="element_5_3" name="element_5_3" class="element text" size="4" maxlength="4" value="" type="text">
+			<label for="element_5_3">YYYY</label>
+		</span>
+	
+		<span id="calendar_5">
+			<img id="cal_img_5" class="datepicker" src="images/calendar.gif" alt="Pick a date.">	
+		</span>
+		<script type="text/javascript">
+			Calendar.setup({
+			inputField	 : "element_5_3",
+			baseField    : "element_5",
+			displayArea  : "calendar_5",
+			button		 : "cal_img_5",
+			ifFormat	 : "%B %e, %Y",
+			onSelect	 : selectEuropeDate
+			});
+		</script>
+		 
+		</li>		<li id="li_4" >
+		<label class="description" for="element_4">Ganancias anuales </label>
+		<div>
+			<input id="element_4" name="element_4" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_6" >
+		<label class="description" for="element_6">Egresos </label>
+		<div>
+			<input id="element_6" name="element_6" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_7" >
+		<label class="description" for="element_7">Profit </label>
+		<div>
+			<input id="element_7" name="element_7" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_8" >
+		<label class="description" for="element_8">Impuestos </label>
+		<div>
+			<input id="element_8" name="element_8" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_9" >
+		<label class="description" for="element_9">Margen de ganancias </label>
+		<div>
+			<input id="element_9" name="element_9" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_10" >
+		<label class="description" for="element_10">Crecimiento (%) últimos 5 años </label>
+		<div>
+			<input id="element_10" name="element_10" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_11" >
+		<label class="description" for="element_11">Crecimiento (%) próximos 5 años </label>
+		<div>
+			<input id="element_11" name="element_11" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_24" >
+		<label class="description" for="element_24">Empleados </label>
+		<span>
+			<input id="element_24_1" name="element_24" class="element radio" type="radio" value="1" />
+<label class="choice" for="element_24_1">0-50</label>
+<input id="element_24_2" name="element_24" class="element radio" type="radio" value="2" />
+<label class="choice" for="element_24_2">51-100</label>
+<input id="element_24_3" name="element_24" class="element radio" type="radio" value="3" />
+<label class="choice" for="element_24_3">101-1000</label>
+<input id="element_24_4" name="element_24" class="element radio" type="radio" value="4" />
+<label class="choice" for="element_24_4">1001-5000</label>
+<input id="element_24_5" name="element_24" class="element radio" type="radio" value="5" />
+<label class="choice" for="element_24_5">+5000</label>
+
+		</span> 
+		</li>		<li id="li_12" >
+		<label class="description" for="element_12">Margen de retorno </label>
+		<div>
+			<input id="element_12" name="element_12" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_13" >
+		<label class="description" for="element_13">Inversión mínima </label>
+		<div>
+			<input id="element_13" name="element_13" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_14" >
+		<label class="description" for="element_14">Liquidez </label>
+		<div>
+			<input id="element_14" name="element_14" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
+		</li>		<li id="li_15" >
+		<label class="description" for="element_15">Stage </label>
+		<div>
+			<textarea id="element_15" name="element_15" class="element textarea small"></textarea> 
+		</div> 
+		</li>		<li id="li_16" >
+		<label class="description" for="element_16">Pitch </label>
+		<div>
+			<textarea id="element_16" name="element_16" class="element textarea medium"></textarea> 
+		</div> 
+		</li>		<li id="li_17" >
+		<label class="description" for="element_17">Principales logros </label>
+		<div>
+			<textarea id="element_17" name="element_17" class="element textarea medium"></textarea> 
+		</div> 
+		</li>		<li id="li_18" >
+		<label class="description" for="element_18">Servicios </label>
+		<div>
+			<textarea id="element_18" name="element_18" class="element textarea medium"></textarea> 
+		</div> 
+		</li>		<li id="li_19" >
+		<label class="description" for="element_19">Beneficios </label>
+		<div>
+			<textarea id="element_19" name="element_19" class="element textarea medium"></textarea> 
+		</div> 
+		</li>		<li id="li_20" >
+		<label class="description" for="element_20">Target </label>
+		<div>
+			<textarea id="element_20" name="element_20" class="element textarea small"></textarea> 
+		</div> 
+		</li>		<li id="li_21" >
+		<label class="description" for="element_21">Principales clientes </label>
+		<div>
+			<textarea id="element_21" name="element_21" class="element textarea small"></textarea> 
+		</div> 
+		</li>		<li id="li_22" >
+		<label class="description" for="element_22">Principales competidores </label>
+		<div>
+			<textarea id="element_22" name="element_22" class="element textarea small"></textarea> 
+		</div> 
+		</li>		<li id="li_23" >
+		<label class="description" for="element_23">Pricipales inversores </label>
+		<div>
+			<textarea id="element_23" name="element_23" class="element textarea small"></textarea> 
+		</div> 
+		</li>
+			
+					<li class="buttons">
+			    <input type="hidden" name="form_id" value="32023" />
+			    
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+		</li>
+			</ul>
+		</form>	
+		<div id="footer">
+			Generated by <a href="http://www.phpform.org">pForm</a>
+		</div>
+	</div>
+	<img id="bottom" src="../assets/bottom.png" alt="">
+	</body>
+</html>
