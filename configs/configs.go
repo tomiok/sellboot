@@ -5,9 +5,10 @@ import "os"
 var Cfgs *SysConfig
 
 type SysConfig struct {
-	Port  string
-	Env   string
-	DBURL string
+	Port        string
+	Env         string
+	DBURL       string
+	TokenSecret string
 }
 
 func Get() *SysConfig {
@@ -21,6 +22,7 @@ func fetchConfigs() *SysConfig {
 	port := os.Getenv("PORT")
 	env := os.Getenv("env")
 	_db := os.Getenv("DB_URL")
+	tokenSecret := os.Getenv("JWT_SECRET")
 
 	if port == "" {
 		port = "5000"
@@ -32,6 +34,10 @@ func fetchConfigs() *SysConfig {
 
 	if _db == "" {
 		_db = "sell-boot.db"
+	}
+
+	if tokenSecret == "" {
+		tokenSecret = "secret"
 	}
 
 	return &SysConfig{

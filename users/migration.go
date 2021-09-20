@@ -1,22 +1,15 @@
-package companies
+package users
 
 import (
 	"github.com/rs/zerolog/log"
-	"sellboot/storage"
+	datastorage "sellboot/storage"
 )
 
 func DoMigration() {
 	db := datastorage.Get()
 
 	err := db.AutoMigrate(
-		&Company{},
-		&Client{},
-		&Investor{},
-		&Competitor{},
-		&MeasurableAssets{},
-		&MidMeasurableAssets{},
-		&SoftAssets{},
-		&Valuation{},
+		&User{},
 	)
 
 	if err != nil {
