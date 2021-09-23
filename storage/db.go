@@ -30,5 +30,14 @@ func get(env string) *gorm.DB {
 		return db
 	}
 
+	if env == "test" {
+		db, err := gorm.Open(sqlite.Open(configs.Get().DBURL), nil)
+
+		if err != nil {
+			log.Fatal().Err(err)
+		}
+		return db
+	}
+
 	panic("please set a correct env")
 }

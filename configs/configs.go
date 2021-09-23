@@ -8,6 +8,7 @@ type SysConfig struct {
 	Port        string
 	Env         string
 	DBURL       string
+	DBTest      string
 	TokenSecret string
 }
 
@@ -41,8 +42,9 @@ func fetchConfigs() *SysConfig {
 	}
 
 	return &SysConfig{
-		Port:  port,
-		Env:   env,
-		DBURL: _db,
+		Port:   port,
+		Env:    env,
+		DBURL:  _db,
+		DBTest: "test.db",
 	}
 }
