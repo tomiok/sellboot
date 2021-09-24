@@ -5,11 +5,11 @@ import "os"
 var Cfgs *SysConfig
 
 type SysConfig struct {
-	Port        string
-	Env         string
-	DBURL       string
-	DBTest      string
-	TokenSecret string
+	Port      string
+	Env       string
+	DBURL     string
+	DBTest    string
+	JWTSecret string
 }
 
 func Get() *SysConfig {

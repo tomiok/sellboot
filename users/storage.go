@@ -44,7 +44,7 @@ func (s Storage) Create(dto UserDTO) (*User, error) {
 
 func (s Storage) Authenticate(username, password string) (*LoginDTO, error) {
 	var user User
-	err := s.DB.First(&user).Where("username=?", username).Error
+	err := s.DB.First(&user, "username=?", username).Error
 
 	if err != nil {
 		return nil, errors.New("user is not present")
