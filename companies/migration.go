@@ -2,7 +2,7 @@ package companies
 
 import (
 	"github.com/rs/zerolog/log"
-	"sellboot/storage"
+	datastorage "sellboot/storage"
 )
 
 func DoMigration() {
@@ -23,4 +23,16 @@ func DoMigration() {
 		log.Error().Msg(err.Error())
 	}
 	log.Info().Msg("migration finish OK")
+}
+
+func Entities() []interface{} {
+	return []interface{}{
+		&Company{},
+		&Client{},
+		&Investor{},
+		&Competitor{},
+		&MeasurableAssets{},
+		&MidMeasurableAssets{},
+		&SoftAssets{},
+		&Valuation{}}
 }

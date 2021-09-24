@@ -3,11 +3,11 @@ package main
 import (
 	"github.com/rs/zerolog"
 	"sellboot/api"
-	"sellboot/companies"
+	"sellboot/migrate"
 )
 
 func main() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	companies.DoMigration()
+	migrate.DoMigration()
 	api.Start()
 }

@@ -25,10 +25,11 @@ func (s *Storage) Decrypt(hashedPwd, plainPwd string) error {
 }
 
 func (s Storage) Create(dto UserDTO) (*User, error) {
+	pass, _ := s.Encrypt(dto.Password)
 	u := &User{
 		Name:     dto.Name,
 		Username: dto.Username,
-		Password: dto.Password,
+		Password: pass,
 		SysRole:  dto.Role,
 	}
 

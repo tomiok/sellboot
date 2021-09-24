@@ -17,3 +17,7 @@ func DoMigration() {
 	}
 	log.Info().Msg("migration finish OK")
 }
+
+func Entities() []interface{} {
+	return []interface{}{&User{}}
+}

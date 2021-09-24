@@ -1,6 +1,8 @@
 package companies
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type Storage struct {
 	DB *gorm.DB
