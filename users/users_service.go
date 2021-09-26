@@ -1,5 +1,10 @@
 package users
 
+type LoginRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 type LoginDTO struct {
 	UserID uint   `json:"user_id"`
 	Status string `json:"status"`

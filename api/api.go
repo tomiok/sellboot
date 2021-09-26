@@ -10,6 +10,7 @@ import (
 	"sellboot/configs"
 	datastorage "sellboot/storage"
 	"sellboot/users"
+	"time"
 )
 
 type Server struct {
@@ -43,7 +44,10 @@ func Start() {
 
 	s := newServer(cfg)
 	s.Static("/", "./views")
-	store := session.New()
+	store := session.New(session.Config{
+		Expiration: 48 * time.Hour,
+		KeyLookup:  "header:session_id",
+	})
 
 	setUpCompanyRoutes(&companies.Web{
 		Svc: companies.NewGateway(companies.NewStorage(_db)),
