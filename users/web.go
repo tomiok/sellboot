@@ -19,6 +19,18 @@ type UserRegistration struct {
 }
 
 func (w *Web) RegistrationAdminHandler(c *fiber.Ctx) error {
+	return addUser(c, w, AdminRole)
+}
+
+func (w *Web) RegistrationInvestorHandler(c *fiber.Ctx) error {
+	return addUser(c, w, InvestorRole)
+}
+
+func (w *Web) RegistrationCompanyHandler(c *fiber.Ctx) error {
+	return addUser(c, w, CompanyRole)
+}
+
+func addUser(c *fiber.Ctx, w *Web, role Role) error {
 	var reg UserRegistration
 	err := c.BodyParser(&reg)
 
@@ -30,7 +42,7 @@ func (w *Web) RegistrationAdminHandler(c *fiber.Ctx) error {
 		Name:     reg.Name,
 		Username: reg.Username,
 		Password: reg.Password,
-		Role:     AdminRole,
+		Role:     role,
 	})
 
 	if err != nil {
@@ -41,5 +53,3 @@ func (w *Web) RegistrationAdminHandler(c *fiber.Ctx) error {
 		"id": u.ID,
 	})
 }
-
-func (w *Web) RegistrationInvestorHandler(c *fiber.Ctx) error {}
