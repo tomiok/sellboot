@@ -20,6 +20,7 @@ type Company struct {
 	Clients             []Client            `json:"clients"`
 	Investors           []Investor          `json:"investors"`
 	Competitors         []Competitor        `json:"competitors"`
+	Valuation           float64             `json:"valuation" gorm:"column:valuation"`
 }
 
 type Client struct {

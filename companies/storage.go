@@ -1,6 +1,7 @@
 package companies
 
 import (
+	"github.com/rs/zerolog/log"
 	"gorm.io/gorm"
 )
 
@@ -32,7 +33,11 @@ func (s *Storage) Get(id uint) (*Company, error) {
 
 func (s *Storage) GetRanking() ([]Company, error) {
 	var dest []Company
-	err := s.DB.First(&dest).Order("").Limit(20).Error
+	err := s.DB.Find(&dest).Order("valuation desc").Limit(20).Error
+	if err != nil {
+		log.Error().Msgf("cannot get companies %s", err.Error())
+		return nil, err
+	}
 	return dest, err
 }
 

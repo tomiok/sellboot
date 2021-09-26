@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
+	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/gofiber/template/html"
 	"github.com/rs/zerolog/log"
 	"sellboot/companies"
@@ -49,7 +50,13 @@ func Start() {
 		KeyLookup:  "header:session_id",
 	})
 
-	setUpCompanyRoutes(&companies.Web{
+	key := configs.Get().JWTSecret
+	jwtMid := jwtware.New(jwtware.Config{
+		SigningKey: []byte(key),
+		ContextKey: configs.Get().JWTContextKey,
+	})
+
+	setUpCompanyRoutes(jwtMid, &companies.Web{
 		Svc: companies.NewGateway(companies.NewStorage(_db)),
 	}, s.App)
 

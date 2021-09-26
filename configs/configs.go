@@ -5,11 +5,12 @@ import "os"
 var Cfgs *SysConfig
 
 type SysConfig struct {
-	Port      string
-	Env       string
-	DBURL     string
-	DBTest    string
-	JWTSecret string
+	Port          string
+	Env           string
+	DBURL         string
+	DBTest        string
+	JWTSecret     string
+	JWTContextKey string
 }
 
 func Get() *SysConfig {
@@ -42,9 +43,11 @@ func fetchConfigs() *SysConfig {
 	}
 
 	return &SysConfig{
-		Port:   port,
-		Env:    env,
-		DBURL:  _db,
-		DBTest: "test.db",
+		Port:          port,
+		Env:           env,
+		DBURL:         _db,
+		DBTest:        "test.db",
+		JWTSecret:     tokenSecret,
+		JWTContextKey: "token_internal",
 	}
 }

@@ -3,6 +3,7 @@ package jwts
 import (
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/rs/zerolog/log"
+	"sellboot/configs"
 	"time"
 )
 
@@ -15,11 +16,12 @@ func CreateToken(long bool, name string, role int) (string, error) {
 		exp = time.Hour * 24 * 30
 	}
 	claims := token.Claims.(jwt.MapClaims)
+	claims["sub"] = "user_id"
 	claims["name"] = name
 	claims["role"] = role
 	claims["exp"] = time.Now().Add(exp).Unix()
 
-	t, err := token.SignedString([]byte("configs.Get().JWTSecret"))
+	t, err := token.SignedString([]byte(configs.Get().JWTSecret))
 	if err != nil {
 		log.Error().Msgf("cannot sign JWT %v", err)
 		return "", err

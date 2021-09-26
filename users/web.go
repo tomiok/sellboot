@@ -54,8 +54,8 @@ func (w *Web) AuthorizationHandler(c *fiber.Ctx) error {
 	}
 
 	ses.Set("token", login.Token)
-
-	return nil
+	c.Set("session_id", ses.ID())
+	return c.JSON(login)
 }
 
 func (w *Web) UserProfileHandler(c *fiber.Ctx) error {
