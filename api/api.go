@@ -3,11 +3,13 @@ package api
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/template/html"
 	"github.com/rs/zerolog/log"
 	"sellboot/companies"
 	"sellboot/configs"
 	datastorage "sellboot/storage"
+	"sellboot/users"
 )
 
 type Server struct {
@@ -41,12 +43,19 @@ func Start() {
 
 	s := newServer(cfg)
 	s.Static("/", "./views")
+	store := session.New()
 
 	setUpCompanyRoutes(&companies.Web{
 		Svc: companies.NewGateway(companies.NewStorage(_db)),
 	}, s.App)
 
+	setUpUserRoutes(&users.Web{
+		Svc:   users.UserService{Gateway: users.NewStorage(_db)},
+		Store: store,
+	}, s.App)
+
 	port := c.Port
+
 	log.Fatal().Err(s.Listen(":" + port))
 }
 
