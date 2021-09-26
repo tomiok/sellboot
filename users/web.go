@@ -41,3 +41,5 @@ func (w *Web) RegistrationAdminHandler(c *fiber.Ctx) error {
 		"id": u.ID,
 	})
 }
+
+func (w *Web) RegistrationInvestorHandler(c *fiber.Ctx) error {}
