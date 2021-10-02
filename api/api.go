@@ -46,7 +46,7 @@ func Start() {
 	s := newServer(cfg)
 	s.Static("/", "./views")
 	store := session.New(session.Config{
-		Expiration: 48 * time.Hour,
+		Expiration: 96 * time.Hour,
 		KeyLookup:  "header:session_id",
 	})
 

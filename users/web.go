@@ -12,6 +12,17 @@ type Web struct {
 	Store *session.Store
 }
 
+func (w *Web) getSession(c *fiber.Ctx) *session.Session {
+	sess, err := w.Store.Get(c)
+
+	if err != nil {
+		log.Error().Msgf("cannot get session, %s", err.Error())
+		return nil
+	}
+
+	return sess
+}
+
 type UserRegistration struct {
 	Name     string `json:"name"`
 	Username string `json:"username"`
@@ -47,10 +58,10 @@ func (w *Web) AuthorizationHandler(c *fiber.Ctx) error {
 	}
 
 	//session
-	ses, err := w.Store.Get(c)
+	ses := w.getSession(c)
 
-	if err != nil {
-		log.Error().Msgf("cannot create session %s", err.Error())
+	if ses == nil {
+		return fiber.NewError(http.StatusBadRequest, "cannot get session")
 	}
 
 	ses.Set("token", login.Token)
@@ -58,8 +69,16 @@ func (w *Web) AuthorizationHandler(c *fiber.Ctx) error {
 	return c.JSON(login)
 }
 
-func (w *Web) UserProfileHandler(c *fiber.Ctx) error {
+func (w *Web) LogoutHandler(c *fiber.Ctx) error {
+	sess := w.getSession(c)
+	if sess == nil {
+		return fiber.NewError(http.StatusBadRequest, "cannot get session")
+	}
 
+	return sess.Destroy()
+}
+
+func (w *Web) UserProfileHandler(c *fiber.Ctx) error {
 	return nil
 }
 
