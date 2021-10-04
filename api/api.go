@@ -56,14 +56,22 @@ func Start() {
 		ContextKey: configs.Get().JWTContextKey,
 	})
 
-	setUpCompanyRoutes(jwtMid, &companies.Web{
-		Svc: companies.NewGateway(companies.NewStorage(_db)),
-	}, s.App)
+	setUpCompanyRoutes(
+		store,
+		jwtMid,
+		&companies.Web{
+			Svc: companies.NewGateway(companies.NewStorage(_db)),
+		},
+		s.App)
 
-	setUpUserRoutes(&users.Web{
-		Svc:   users.UserService{Gateway: users.NewStorage(_db)},
-		Store: store,
-	}, s.App)
+	setUpUserRoutes(
+		store,
+		jwtMid,
+		&users.Web{
+			Svc:   users.UserService{Gateway: users.NewStorage(_db)},
+			Store: store,
+		},
+		s.App)
 
 	port := c.Port
 

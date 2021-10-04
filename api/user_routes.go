@@ -2,16 +2,17 @@ package api
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/session"
 	"sellboot/users"
 )
 
-func setUpUserRoutes(web *users.Web, app *fiber.App) {
+func setUpUserRoutes(store *session.Store, jwtMid fiber.Handler, web *users.Web, app *fiber.App) {
 	router := app.Group("/users")
 
-	router.Post("/admin", web.RegistrationAdminHandler)
-	router.Post("/investor", web.RegistrationInvestorHandler)
-	router.Post("/company", web.RegistrationCompanyHandler)
+	router.Post("/registration/admin", web.RegistrationAdminHandler)
+	router.Post("/registration/investor", web.RegistrationInvestorHandler)
+	router.Post("/registration/company", web.RegistrationCompanyHandler)
 
 	router.Post("/login", web.AuthorizationHandler)
-	router.Get("/profile", web.UserProfileHandler)
+	router.Use(jwtMid, getSessionMiddleware(store)).Get("/profile", web.UserProfileHandler)
 }
