@@ -73,6 +73,8 @@ func Start() {
 		},
 		s.App)
 
+	setUpHomeRoutes(s.App)
+
 	port := c.Port
 
 	log.Fatal().Err(s.Listen(":" + port))
