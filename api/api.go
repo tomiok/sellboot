@@ -1,12 +1,14 @@
 package api
 
 import (
+	"embed"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/gofiber/template/html"
 	"github.com/rs/zerolog/log"
+	"net/http"
 	"sellboot/companies"
 	"sellboot/configs"
 	datastorage "sellboot/storage"
@@ -18,9 +20,10 @@ type Server struct {
 	*fiber.App
 }
 
-func Start() {
+func Start(fs embed.FS) {
 	c := configs.Get()
-	engine := html.New("./views", ".html")
+	//engine := html.New("./views", ".html")
+	engine := html.NewFileSystem(http.FS(fs), ".html")
 	_db := datastorage.Get()
 	cfg := fiber.Config{
 		Views: engine,
