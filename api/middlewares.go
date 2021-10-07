@@ -5,6 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/rs/zerolog/log"
 	"net/http"
+	"sellboot/users"
 )
 
 func getSessionMiddleware(store *session.Store) func(c *fiber.Ctx) error {
@@ -16,6 +17,7 @@ func getSessionMiddleware(store *session.Store) func(c *fiber.Ctx) error {
 		}
 
 		log.Info().Msgf("session ID %s", sess.ID())
+		log.Info().Msgf("remote IP %s", sess.Get(users.RemoteIP))
 		return nil
 	}
 }

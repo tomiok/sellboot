@@ -6,9 +6,10 @@ type LoginRequest struct {
 }
 
 type LoginDTO struct {
-	UserID uint   `json:"user_id"`
-	Status string `json:"status"`
-	Token  string `json:"token"`
+	UserID  uint   `json:"user_id"`
+	Status  string `json:"status"`
+	Token   string `json:"token"`
+	Session string `json:"session"`
 }
 
 type UserDTO struct {

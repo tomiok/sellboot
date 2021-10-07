@@ -58,14 +58,17 @@ func (w *Web) AuthorizationHandler(c *fiber.Ctx) error {
 	}
 
 	//session
-	ses := w.getSession(c)
+	sess := w.getSession(c)
 
-	if ses == nil {
+	if sess == nil {
 		return fiber.NewError(http.StatusBadRequest, "cannot get session")
 	}
 
-	ses.Set("token", login.Token)
-	c.Set("session_id", ses.ID())
+	sess.Set(Token, login.Token)
+	sess.Set(RemoteIP, c.IP())
+	sess.SetExpiry(w.Store.Expiration)
+	login.Session = sess.ID()
+	sess.Save()
 	return c.JSON(login)
 }
 
