@@ -8,7 +8,7 @@ import (
 	"sellboot/users"
 )
 
-func getSessionMiddleware(store *session.Store) func(c *fiber.Ctx) error {
+func roleMiddleware(store *session.Store, roles ...users.Role) func(c *fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
 		sess, err := store.Get(c)
 
@@ -18,6 +18,28 @@ func getSessionMiddleware(store *session.Store) func(c *fiber.Ctx) error {
 
 		log.Info().Msgf("session ID %s", sess.ID())
 		log.Info().Msgf("remote IP %s", sess.Get(users.RemoteIP))
-		return nil
+
+		b := sess.Get(users.UserData)
+
+		dto := b.(*users.LoginDTO)
+
+		// no roles mean everyone is accepted
+		if len(roles) == 0 {
+			return nil
+		}
+
+		var present = false
+		for _, role := range roles {
+			if role == dto.Role {
+				present = true
+				break
+			}
+		}
+
+		if present {
+			return nil
+		}
+
+		return fiber.NewError(http.StatusUnauthorized, "you are not allowed to this page")
 	}
 }

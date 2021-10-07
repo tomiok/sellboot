@@ -67,8 +67,15 @@ func (w *Web) AuthorizationHandler(c *fiber.Ctx) error {
 	sess.Set(Token, login.Token)
 	sess.Set(RemoteIP, c.IP())
 	sess.SetExpiry(w.Store.Expiration)
-	login.Session = sess.ID()
-	sess.Save()
+	sess.Set(UserData, login.marshall())
+
+	login.SessionID = sess.ID()
+	err = sess.Save()
+
+	if err != nil {
+		return err
+	}
+
 	return c.JSON(login)
 }
 

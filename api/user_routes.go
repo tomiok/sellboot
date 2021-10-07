@@ -14,5 +14,5 @@ func setUpUserRoutes(store *session.Store, jwtMid fiber.Handler, web *users.Web,
 	router.Post("/registration/company", web.RegistrationCompanyHandler)
 
 	router.Post("/login", web.AuthorizationHandler)
-	router.Use(jwtMid, getSessionMiddleware(store)).Get("/profile", web.UserProfileHandler)
+	router.Use(jwtMid, roleMiddleware(store)).Get("/profile", web.UserProfileHandler)
 }

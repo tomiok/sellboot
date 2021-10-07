@@ -1,15 +1,43 @@
 package users
 
+import (
+	"encoding/json"
+	"github.com/rs/zerolog/log"
+)
+
 type LoginRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
 type LoginDTO struct {
-	UserID  uint   `json:"user_id"`
-	Status  string `json:"status"`
-	Token   string `json:"token"`
-	Session string `json:"session"`
+	UserID    uint   `json:"user_id"`
+	Status    string `json:"status"`
+	Token     string `json:"token"`
+	SessionID string `json:"session_id"`
+	Role      Role   `json:"role"`
+}
+
+func (dto *LoginDTO) marshall() []byte {
+	b, err := json.Marshal(dto)
+
+	if err != nil {
+		log.Warn().Err(err)
+		return nil
+	}
+
+	return b
+}
+
+func ParseLoginDTO(b []byte) (*LoginDTO, error) {
+	var dto LoginDTO
+	err := json.Unmarshal(b, &dto)
+
+	if err != nil {
+		log.Warn().Msgf("cannot parse login DTO, %v", err)
+		return nil, err
+	}
+	return &dto, nil
 }
 
 type UserDTO struct {
