@@ -1,13 +1,28 @@
 package api
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/valyala/fasthttp"
 	"sellboot/users"
 	"testing"
 )
+
+var companyUser = &users.LoginDTO{
+	UserID:    1,
+	Status:    "OK",
+	Token:     "123asd",
+	SessionID: "00001",
+	Role:      users.CompanyRole,
+}
+
+var adminUser = &users.LoginDTO{
+	UserID:    2,
+	Status:    "OK",
+	Token:     "456QWE",
+	SessionID: "00002",
+	Role:      users.AdminRole,
+}
 
 func TestRoleMiddleware(t *testing.T) {
 	app := fiber.New()
@@ -23,18 +38,29 @@ func TestRoleMiddleware(t *testing.T) {
 	}
 
 	sess.Set(users.RemoteIP, "127.0.0.1")
-	sess.Set(users.UserData, &users.LoginDTO{
-		UserID:    1,
-		Status:    "OK",
-		Token:     "123asd",
-		SessionID: "00001",
-		Role:      users.CompanyRole,
-	})
+	// add an admin role
+	sess.Set(users.UserData, adminUser)
 
-	fmt.Println(sess.Save())
-	fmt.Println(sess.ID())
+	err = sess.Save()
+	if err != nil {
+		t.Error(err.Error())
+	}
 	ctx.Request().Header.Set("session_id", sess.ID())
-	fn := roleMiddleware(store, users.AdminRole)
 
-	fmt.Println(fn(ctx))
+	// add a company role
+	fn := roleMiddleware(store, users.CompanyRole)
+
+	// error should occur, if nil, fails here
+	if err := fn(ctx); err == nil {
+		t.Error("err should not be nil, different roles here")
+		t.FailNow()
+	}
+
+	// admin role set up
+	fn = roleMiddleware(store, users.AdminRole)
+
+	if err := fn(ctx); err != nil {
+		t.Error("should be authorized")
+		t.FailNow()
+	}
 }
