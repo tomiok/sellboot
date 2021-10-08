@@ -29,17 +29,6 @@ func (dto *LoginDTO) marshall() []byte {
 	return b
 }
 
-func ParseLoginDTO(b []byte) (*LoginDTO, error) {
-	var dto LoginDTO
-	err := json.Unmarshal(b, &dto)
-
-	if err != nil {
-		log.Warn().Msgf("cannot parse login DTO, %v", err)
-		return nil, err
-	}
-	return &dto, nil
-}
-
 type UserDTO struct {
 	Name     string `json:"name"`
 	Username string `json:"username"`

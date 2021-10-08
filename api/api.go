@@ -5,7 +5,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/gofiber/template/html"
-	"github.com/rs/zerolog/log"
 	"net/http"
 	"sellboot/companies"
 	"sellboot/configs"
@@ -17,8 +16,7 @@ type Server struct {
 	*fiber.App
 }
 
-func Start(fs embed.FS) {
-	c := configs.Get()
+func Setup(fs embed.FS) *Server {
 	engine := html.NewFileSystem(http.FS(fs), ".html")
 	_db := datastorage.Get()
 	cfg := appConfig(engine)
@@ -51,10 +49,7 @@ func Start(fs embed.FS) {
 		s.App)
 
 	setUpHomeRoutes(s.App)
-
-	port := c.Port
-
-	log.Fatal().Err(s.Listen(":" + port))
+	return s
 }
 
 func newServer(cfg fiber.Config) *Server {
